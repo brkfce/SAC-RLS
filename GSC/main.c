@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 
 void reploop(void){
     char * cmdLine;
-    char ** args;
+    //char ** args;
     int cmdStatus;
 
     //Read user command
@@ -50,11 +50,28 @@ void reploop(void){
 }
 
 char* readLine(void){
-//Fill me
+    char line[256];
+    scanf("%s", line);  //Scans the whole line in as a string, to be parsed by a different function
+
+    return(&line);
 }
-char** parseLine(char*){
-//Fill me
+char* parseLine(cmdLine){    //In this version, only the first word of a command can be parsed. Arguments will be handled in subsequent versions
+    char newChar;
+    int cmdLen = 0;
+
+    do{     //This loops through until the first space is found, to find the length of the first command
+        newChar = *(cmdLine + cmdLen);
+        cmdLen++;
+    }while(newChar != ' ')
+
+    char command[cmdLen];   //The string is then looped through up to this length
+
+    for(int i = 0, i = n, i++){     //This could be done in one loop, using dynamic memory allocation. Will be done in subsequent version
+        newChar = *(cmLine + i);
+        command[i] = newChar;
+    }
 }
+
 int executeLine(char**){
 //Fill me
 }
