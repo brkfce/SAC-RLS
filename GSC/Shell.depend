@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1584526531 source:c:\users\calsu\documents\yar\sac\recovery and launch systems\sac-rls\gsc\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
