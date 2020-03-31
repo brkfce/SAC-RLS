@@ -5,10 +5,16 @@
 
 char line[256];
 
+//Shell structure
 void reploop(void);
 void readLine(void);
 int parseLine(void);
 int executeLine(int);
+
+//Command Functions
+long hasher(int);
+void helpCommand(void);
+void launchCommand(void);
 
 int main()
 {
@@ -60,20 +66,59 @@ int parseLine(void){    //In this version, only the first word of a command can 
 int executeLine(cmdLen){
 
     char command[cmdLen];
-    for(int i = 0; i <= cmdLen; i++){
-        command[i] = line[i];
+    int hashedEntry = hasher(cmdLen);
+
+
+
+
+    //To avoid recomputing, the hashes using the function below have been pre-calculated, and the array populated
+
+        #define helpHash 1167652161
+        #define launchHash 1636433284
+
+
+    //Create a hash function, make an array containing the hashes of the commands, then use a switch to identify if a command has been used.
+    //To avoid collisions, ignore any entries that fall outside the possible lengths of commands. Use a robust hash function
+    //Create functions for each command, and have the switch point to the functions, rather than store them here
+    long lineHash = hasher(cmdLen);
+    switch (lineHash){
+        case helpHash:
+            helpCommand();
+            break;
+        case launchHash:
+            launchCommand();
+            break;
+        default:
+            printf("Command not recognised. Use help to get a list of available commands.\n");
     }
-    if(strcmp(command, "launch") == 0) {
-        printf("Launching\n");                //Inefficient way of doing it. To improve, have a hash table of commands so a switch can be used for
-    }
-    else if(strcmp(command, "exit") == 0){
-        printf("Exiting...");
-        return(1);
-    }                                    //comparison to known commands. Also, commands should have own functions to be called in later versions
-    else {
-        printf("Command not recognised\n");
-    }
+
     return(0);
 }
+
+long hasher(cmdLen){
+    //Thank you, stack overflow
+    //https://stackoverflow.com/questions/7666509/hash-function-for-string
+    int hash, i;
+    for (hash = i = 0; i < cmdLen; i++){
+        hash += line[i];
+        hash += (hash << 10);
+        hash += (hash >> 6);
+    }
+    hash += (hash << 3);
+    hash ^= (hash >> 11);
+    hash += (hash << 15);
+    return hash;
+}
+
+void helpCommand(){
+    printf("The available commands are: \nhelp\nlaunch\n");
+}
+void launchCommand(){
+    printf("Launching...\n");
+}
+
+
+
+
 
 //Will need to implement a list of acceptable commands-here, or in sep. file?
