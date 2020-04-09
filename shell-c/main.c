@@ -118,7 +118,8 @@ void launchCommand(){
 }
 
 
+//Will need a "get weather" command, and maybe commands for individual sensors?
+
+//Will need to log events that occur in the console as well-either record each command, or just the command line in general (inputs and output)
 
 
-
-//Will need to implement a list of acceptable commands-here, or in sep. file?
